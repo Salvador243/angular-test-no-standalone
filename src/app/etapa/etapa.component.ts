@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-declare var bootstrap: any;
 interface Etapas {
   id: number;
   titulo: string;
@@ -21,15 +20,16 @@ export class EtapaComponent implements OnInit{
   public etapaForm!: FormGroup;
   private lastID: number = 0;
   public titleModal: string = '';
+  public textButton: string = '';
 
   ngOnInit(): void {
     this.etapaForm = new FormGroup({
-      id: new FormControl(0),
-      titulo: new FormControl('12', Validators.required),
-      descripcion: new FormControl('12122', Validators.required),
-      entregable: new FormControl('asdas00'),
-      fecha_inicio: new FormControl('2024-01-01', Validators.required),
-      fecha_fin: new FormControl('2024-05-10', Validators.required),
+      id: new FormControl(null),
+      titulo: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      entregable: new FormControl(''),
+      fecha_inicio: new FormControl('', Validators.required),
+      fecha_fin: new FormControl('', Validators.required),
     });
     this.loadData();
   }
@@ -77,15 +77,16 @@ export class EtapaComponent implements OnInit{
     localStorage.setItem('etapas', JSON.stringify(this.etapas));
   }
 
-  public changeTitle(title: string ): void{
+  public changeTitle(title: string, button: string): void{
     this.titleModal = title;
+    this.textButton = button;
     document.getElementById('modalButtonMain')!.click()
   }
 
   public editar(id: number): void {
     const etapaById = this.etapas?.filter( element => element.id == id)[0];
     this.etapaForm.patchValue(etapaById!);
-    this.changeTitle('Editar etapa');
+    this.changeTitle('Editar etapa', 'Modificar');
   }
 
   public eliminar(id: number): void{

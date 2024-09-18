@@ -3,7 +3,7 @@
         class="btn etapa"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
-        (click)="changeTitle('Agregar etapa')"
+        (click)="changeTitle('Agregar etapa', 'Agregar')"
         >
         <img src="/img/agregar.svg" style="height: 28px;" alt="">&nbsp;&nbsp; <span>Agregar etapa</span>
     </button>
@@ -44,7 +44,7 @@
     <div class="row m-auto my-5">
         <button type="button"
             class="btn etapa"
-            (click)="changeTitle('Agregar etapa')"
+            (click)="changeTitle('Agregar etapa', 'Agregar')"
             >
             <img src="/img/agregar.svg" style="height: 28px;" alt="">&nbsp;&nbsp; <span>Agregar otra etapa</span>
         </button>
@@ -103,7 +103,7 @@
                             <button class="btn-footer bg-4"
                                 [disabled]="etapaForm.invalid"
                                 data-bs-dismiss="modal"
-                                type="submit">Agregar
+                                type="submit">{{ textButton }}
                             </button>
                         </div>
 
