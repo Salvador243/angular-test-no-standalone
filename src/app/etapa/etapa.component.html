@@ -1,0 +1,115 @@
+<div class="p-0 my-4">
+    <button type="button"
+        class="btn etapa"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        (click)="changeTitle('Agregar etapa')"
+        >
+        <img src="/img/agregar.svg" style="height: 28px;" alt="">&nbsp;&nbsp; <span>Agregar etapa</span>
+    </button>
+</div>
+    
+<div class="card">
+    <div class="container">
+        <p>Etapas</p>
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th align="center">Titulo</th>
+                    <th align="center">Descripción</th>
+                    <th align="center">Entregable</th>
+                    <th align="center">Fecha Inicio</th>
+                    <th align="center">Fecha Fin</th>
+                    <th align="center">
+                        <img src="/img/editar.svg" alt="" style="width: 20px;">
+                    </th>
+                    <th align="center">
+                        <img src="/img/delete.svg" alt="" style="width: 20px;">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let etapa of etapas">
+                    <td align="center">{{ etapa.titulo }}</td>
+                    <td align="center">{{ etapa.descripcion }}</td>
+                    <td align="center">{{ etapa.entregable }}</td>
+                    <td align="center">{{ etapa.fecha_inicio }}</td>
+                    <td align="center">{{ etapa.fecha_fin }}</td>
+                    <td align="center"><span class="acciones" (click)="editar(etapa.id)">Editar</span></td>
+                    <td align="center"><span class="acciones" (click)="eliminar(etapa.id)">Eliminar</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row m-auto my-5">
+        <button type="button"
+            class="btn etapa"
+            (click)="changeTitle('Agregar etapa')"
+            >
+            <img src="/img/agregar.svg" style="height: 28px;" alt="">&nbsp;&nbsp; <span>Agregar otra etapa</span>
+        </button>
+    </div>
+</div>
+
+
+<button type="button" style="display: none;"
+    id="modalButtonMain"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal">
+</button>
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 0 !important;">
+            <div class="modal-header pb-0">
+                <p class="modal-title" id="exampleModalLabel"><strong>{{ titleModal }}</strong></p>
+                <span style="margin: auto;"></span>
+                <button type="button" class="btn" data-bs-dismiss="modal" (click)="resetForm()">
+                    <img style="height: 30px; position: absolute;top: 0;right: 0;font-size: 18px;" src="/img/cerrar.svg" alt="">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="etapaForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="" class="form-label">Título de la iniciativa: <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="titulo">
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Descripcion de la etapa: <span class="text-danger">*</span></label>
+                            <textarea name="" id class="form-control" formControlName="descripcion" rows="4"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Entregable de la etapa:</label>
+                            <input type="text" class="form-control" formControlName="entregable">
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Fecha inicio: <span class="text-danger">*</span>&nbsp;<img style="height: 14px;" src="/img/informacion.svg" alt=""></label>
+                            <input type="date" class="form-control" formControlName="fecha_inicio">
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Fecha fin: <span class="text-danger">*</span>&nbsp;<img style="height: 14px;" src="/img/informacion.svg" alt=""></label>
+                            <input type="date" class="form-control" placeholder="" formControlName="fecha_fin">
+                        </div>
+
+                        <div class="d-flex mt-4">
+                            <button class="btn-footer"
+                                type="button"
+                                data-bs-dismiss="modal"
+                                (click)="resetForm()">
+                                Cancelar
+                            </button>
+                            <span style="margin: auto;"></span>
+                            <button class="btn-footer bg-4"
+                                [disabled]="etapaForm.invalid"
+                                data-bs-dismiss="modal"
+                                type="submit">Agregar
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
